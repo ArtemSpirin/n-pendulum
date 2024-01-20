@@ -8,7 +8,7 @@ from matplotlib.animation import PillowWriter
 from numpy.linalg import solve
 
 
-n = 4
+n = 3
 
 m = list()
 L = list()
@@ -53,12 +53,12 @@ def dSdt(S, t, g, *mL):
 
 
     return Ans
-#{Derivative(\theta_1(t), (t, 2)): -1.0*L1*m2*sin(\theta_1(t) - \theta_2(t))*cos(\theta_1(t) - \theta_2(t))*Derivative(\theta_1(t), t)**2/(1.0*L1*m1 - 1.0*L1*m2*cos(\theta_1(t) - \theta_2(t))**2 + 1.0*L1*m2) + 1
+
 t = np.linspace(0, 40, 1001)
 g = 9.81
 m = [1 for i in range(n)]  # [i + 1 for i in range(n)]
 L = [1 for i in range(n)]  # [(i + 1)/2 for i in range(n)]
-y0 = [-np.pi/3, 0, np.pi/3, 0,-np.pi/3, 0,np.pi/3, 0]  # [1 for i in range(2*n)]
+y0 = [-np.pi/3, 0, np.pi/3, 0, np.pi/3, 0]  # [1 for i in range(2*n)]
 ans = odeint(dSdt, y0, t=t, args=(g, *m, *L))
 
 
@@ -91,4 +91,4 @@ ln1, = plt.plot([], [], 'ko-', lw=3, markersize=8)
 ax.set_ylim(-4, 4)
 ax.set_xlim(-4, 4)
 ani = animation.FuncAnimation(fig, animate, frames=1000, interval=50)
-
+ani.save('n_pendulum_program_1.gif',writer='pillow',fps=25)
